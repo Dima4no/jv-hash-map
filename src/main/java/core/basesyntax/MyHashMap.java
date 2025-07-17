@@ -1,6 +1,5 @@
 package core.basesyntax;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class MyHashMap<K, V> implements MyMap<K, V> {
@@ -28,7 +27,7 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         public MyNode(K key, V value) {
             this.key = key;
             this.value = value;
-            this.hash = hashCode();
+            this.hash = (key == null ? 0 : key.hashCode());
             this.next = null;
         }
 
@@ -41,8 +40,12 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (obj == null || this.getClass() != obj.getClass()) return false;
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null || this.getClass() != obj.getClass()) {
+                return false;
+            }
             MyNode<?, ?> other = (MyNode<?, ?>) obj;
             return (Objects.equals(key, other.key));
         }
